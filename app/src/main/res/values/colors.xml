@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#204752</color>
+    <color name="secondary">#9ba6cf</color>
+    <color name="accent">#66717f</color>
+    <color name="background">#f4f5f6</color>
+    <color name="text">#E6070909</color>
+    <color name="inverseText">#E6F6F8F8</color>
+    <color name="secondary10">#1A1E6C6C</color>
+    <color name="secondary30">#4D9BA6CF</color>
+    <color name="dialog">#F4FBF9</color>
+    <color name="navBg">#FFFFFF</color>
+    <color name="cardCatBg">#8f8fc1</color>
+    <color name="cardBookBg">#79b8cd</color>
+    <color name="color1">#d9e2fc</color>
+    <color name="color2">#e4e8ec</color>
+    <color name="color3">#e9f1f7</color>
+    <color name="secondaryInverse">#303b64</color>
+</resources>

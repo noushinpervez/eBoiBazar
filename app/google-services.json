@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "287028430464",
+    "firebase_url": "https://eboibazar--ewu-default-rtdb.firebaseio.com",
+    "project_id": "eboibazar--ewu",
+    "storage_bucket": "eboibazar--ewu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287028430464:android:1b28550c39ef0ec3c64865",
+        "android_client_info": {
+          "package_name": "edu.ewubd.eboibazar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "287028430464-ri280q65d2kh9hppjh8qq0p2m49dp21b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.ewubd.eboibazar",
+            "certificate_hash": "30bce9bdb9dee98ca11bac4b440a8905fca709d2"
+          }
+        },
+        {
+          "client_id": "287028430464-krselnrbahug08t50cjl7pp597k4kivj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbr6vPmytlkLG3JN71TSQR6AlUJJRYQMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "287028430464-krselnrbahug08t50cjl7pp597k4kivj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="primary">#aed5e0</color>
+    <color name="secondary">#303b64</color>
+    <color name="accent">#808b99</color>
+    <color name="background">#090a0b</color>
+    <color name="text">#E6F6F8F8</color>
+    <color name="inverseText">#E6070909</color>
+    <color name="secondary10">#1A303B64</color>
+    <color name="secondary30">#4D303B64</color>
+    <color name="dialog">#090F13</color>
+    <color name="navBg">#000000</color>
+    <color name="cardCatBg">#3e3e70</color>
+    <color name="cardBookBg">#327186</color>
+    <color name="color1">#030c26</color>
+    <color name="color2">#13171b</color>
+    <color name="color3">#081016</color>
+    <color name="secondaryInverse">#9ba6cf</color>
+</resources>
