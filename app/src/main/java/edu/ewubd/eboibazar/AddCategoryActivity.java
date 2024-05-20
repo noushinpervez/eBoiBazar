@@ -8,12 +8,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AddCategoryActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
+    TextInputLayout textCat;
     private EditText etCategory;
 
     @Override
@@ -25,6 +27,7 @@ public class AddCategoryActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Categories");
         etCategory = findViewById(R.id.etCategory);
+        textCat = findViewById(R.id.category);
 
         findViewById(R.id.btnAddCat).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,9 +47,15 @@ public class AddCategoryActivity extends AppCompatActivity {
     private void saveData() {
         String category = etCategory.getText().toString().trim();
 
+        if (category.isEmpty() || category.length() > 30) {
+            textCat.setError("Please enter a valid category (Bangla characters only, 1-50 characters)");
+            etCategory.requestFocus();
+            return;
+        }
+
         String key = databaseReference.push().getKey();
 
-        Category bookCategory = new Category(category);
+        Category bookCategory = new Category(key, category);
 
         databaseReference.child(key).setValue(bookCategory);
         Toast.makeText(AddCategoryActivity.this, "Book category inserted", Toast.LENGTH_SHORT).show();

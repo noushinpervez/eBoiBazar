@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:text="4"
+                    android:text=""
                     android:textColor="@color/secondaryInverse"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:text="9"
+                    android:text=""
                     android:textColor="@color/secondaryInverse"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -191,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:text="23"
+                    android:text=""
                     android:textColor="@color/secondaryInverse"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -234,21 +234,40 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:elevation="0dp"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/cardCatBg"
             app:cardCornerRadius="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="16dp"
-                android:gravity="center"
-                android:text="Add category"
-                android:textColor="@color/text"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="32dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/shape_circle_plus" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
+                    android:text="Add New Category"
+                    android:textColor="@color/secondaryInverse"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -259,21 +278,40 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
             android:elevation="0dp"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/cardBookBg"
             app:cardCornerRadius="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="16dp"
-                android:gravity="center"
-                android:text="Add new book"
-                android:textColor="@color/text"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="32dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/book_plus" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
+                    android:text="Add New Book"
+                    android:textColor="@color/secondaryInverse"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
