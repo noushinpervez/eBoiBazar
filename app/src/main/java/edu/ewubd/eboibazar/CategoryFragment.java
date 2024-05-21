@@ -66,7 +66,7 @@ public class CategoryFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "You are offline. Check your connection.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Database error: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -19,8 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    DatabaseReference databaseReferenceCat, databaseReferenceUsers;
-    private TextView tvCatCount, tvUsersCount;
+    DatabaseReference databaseReferenceCat, databaseReferenceUsers, databaseReferenceBooks;
+    private TextView tvCatCount, tvUsersCount, tvBooksCount;
     private SharedPreferences sp;
 
     @Override
@@ -30,9 +30,11 @@ public class DashboardActivity extends AppCompatActivity {
 
         tvCatCount = findViewById(R.id.tvCatCount);
         tvUsersCount = findViewById(R.id.tvUsersCount);
+        tvBooksCount = findViewById(R.id.tvBooksCount);
         Toolbar toolbar = findViewById(R.id.toolbar);
         databaseReferenceCat = FirebaseDatabase.getInstance().getReference("Categories");
         databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("Users");
+        databaseReferenceBooks = FirebaseDatabase.getInstance().getReference("Books");
         sp = this.getSharedPreferences("dashboard_info", MODE_PRIVATE);
 
         // load data from local to prevent delay in displaying counts
@@ -75,7 +77,7 @@ public class DashboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(DashboardActivity.this, "You are offline. Check your connection", Toast.LENGTH_LONG).show();
+                Toast.makeText(DashboardActivity.this, "Database error" + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -89,7 +91,21 @@ public class DashboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(DashboardActivity.this, "You are offline. Check your connection", Toast.LENGTH_LONG).show();
+                Toast.makeText(DashboardActivity.this, "Database error" + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        databaseReferenceBooks.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long booksCount = snapshot.getChildrenCount();
+                tvBooksCount.setText(String.valueOf(booksCount));
+                saveCountToLocal("BOOK_COUNT", booksCount);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(DashboardActivity.this, "Database error" + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -97,9 +113,11 @@ public class DashboardActivity extends AppCompatActivity {
     private void loadLocalCounts() {
         long categoryCount = sp.getLong("CATEGORY_COUNT", 0);
         long userCount = sp.getLong("USER_COUNT", 0);
+        long bookCount = sp.getLong("BOOK_COUNT", 0);
 
         tvCatCount.setText(String.valueOf(categoryCount));
         tvUsersCount.setText(String.valueOf(userCount));
+        tvBooksCount.setText(String.valueOf(bookCount));
     }
 
     private void saveCountToLocal(String key, long count) {

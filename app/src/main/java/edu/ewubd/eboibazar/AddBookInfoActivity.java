@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -28,8 +27,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
@@ -142,12 +143,6 @@ public class AddBookInfoActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-    }
-
-    private void decodeImage() {
-        byte[] bytes = Base64.decode(image, Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        imgBookCover.setImageBitmap(bitmap);
     }
 
     public String getImageExtension(Uri uri) {
@@ -264,12 +259,22 @@ public class AddBookInfoActivity extends AppCompatActivity {
                 progressIndicator.setVisibility(View.GONE);
                 Toast.makeText(AddBookInfoActivity.this, "Image uploaded successfully", Toast.LENGTH_LONG).show();
 
-                String key = databaseReference.push().getKey();
-                Book book = new Book(bookName, author, category, taskSnapshot.getStorage().getDownloadUrl().toString(), price, copies, bookLength, publication, edition, isbn, keywords, language, description, stockStatus);
-                databaseReference.child(key).setValue(book);
-                Toast.makeText(AddBookInfoActivity.this, "Book inserted successfully", Toast.LENGTH_SHORT).show();
+                taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downloadUrl = task.getResult();
 
-                clearText();
+                            String key = databaseReference.push().getKey();
+                            Book book = new Book(bookName, author, category, downloadUrl.toString(), price, copies, bookLength, publication, edition, isbn, keywords, language, description, stockStatus);
+                            databaseReference.child(key).setValue(book);
+                            Toast.makeText(AddBookInfoActivity.this, "Book inserted successfully", Toast.LENGTH_SHORT).show();
+
+                            clearText();
+                        } else
+                            Toast.makeText(AddBookInfoActivity.this, "Failed to get download URL", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

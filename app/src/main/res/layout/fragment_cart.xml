@@ -12,6 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_marginBottom="48dp"
         android:background="@color/navBg"
         android:elevation="8dp">
 
@@ -30,7 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="?attr/actionBarSize"
         android:orientation="vertical">
 
         <ImageView
