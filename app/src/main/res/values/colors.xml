@@ -16,4 +16,5 @@
     <color name="color2">#e4e8ec</color>
     <color name="color3">#e9f1f7</color>
     <color name="secondaryInverse">#303b64</color>
+    <color name="text50">#80070909</color>
 </resources>

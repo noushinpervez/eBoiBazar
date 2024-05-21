@@ -42,4 +42,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.android.gms:play-services-auth:21.1.1")
     implementation("com.google.firebase:firebase-database")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
+    implementation("com.google.firebase:firebase-storage")
 }

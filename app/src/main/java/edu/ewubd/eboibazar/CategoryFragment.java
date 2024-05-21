@@ -17,14 +17,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CategoryFragment extends Fragment {
 
     DatabaseReference databaseReference;
-    private List<Category> bookCategory;
+    private ArrayList<Category> bookCategory;
     private CustomCategoryAdapter customCategoryAdapter;
-    private boolean dataLoaded = false;
     private CategoryDB categoryDB;
 
     public CategoryFragment() {
@@ -40,11 +38,8 @@ public class CategoryFragment extends Fragment {
         customCategoryAdapter = new CustomCategoryAdapter(getActivity(), bookCategory);
         categoryDB = new CategoryDB(getActivity());
 
-        // load data from local to prevent delay in displaying categories
         loadLocalCategories();
-
-        // ensures data is loaded only once during the lifetime of the activity
-        if (!dataLoaded) loadData();
+        loadData();
 
         lvCategory.setAdapter(customCategoryAdapter);
 
@@ -52,7 +47,7 @@ public class CategoryFragment extends Fragment {
     }
 
     private void loadData() {
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.orderByChild("category").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 bookCategory.clear();
@@ -67,7 +62,6 @@ public class CategoryFragment extends Fragment {
                 }
 
                 customCategoryAdapter.notifyDataSetChanged();
-                dataLoaded = true;
             }
 
             @Override
@@ -84,7 +78,6 @@ public class CategoryFragment extends Fragment {
             bookCategory.clear();
             bookCategory.addAll(categories);
             customCategoryAdapter.notifyDataSetChanged();
-            dataLoaded = true;
         }
     }
 }

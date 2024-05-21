@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,7 +22,6 @@ public class DashboardActivity extends AppCompatActivity {
     DatabaseReference databaseReferenceCat, databaseReferenceUsers;
     private TextView tvCatCount, tvUsersCount;
     private SharedPreferences sp;
-    private boolean dataLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         tvCatCount = findViewById(R.id.tvCatCount);
         tvUsersCount = findViewById(R.id.tvUsersCount);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         databaseReferenceCat = FirebaseDatabase.getInstance().getReference("Categories");
         databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("Users");
         sp = this.getSharedPreferences("dashboard_info", MODE_PRIVATE);
@@ -37,8 +38,7 @@ public class DashboardActivity extends AppCompatActivity {
         // load data from local to prevent delay in displaying counts
         loadLocalCounts();
 
-        // ensures data is loaded only once during the lifetime of the activity
-        if (!dataLoaded) loadData();
+        loadData();
 
         findViewById(R.id.cardAddBook).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,16 +55,22 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void loadData() {
-        databaseReferenceCat.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReferenceCat.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 long categoryCount = snapshot.getChildrenCount();
                 tvCatCount.setText(String.valueOf(categoryCount));
                 saveCountToLocal("CATEGORY_COUNT", categoryCount);
-                dataLoaded = true;
             }
 
             @Override
@@ -73,7 +79,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        databaseReferenceUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReferenceUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 long usersCount = snapshot.getChildrenCount();
