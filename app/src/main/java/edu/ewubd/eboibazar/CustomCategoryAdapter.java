@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 public class CustomCategoryAdapter extends ArrayAdapter<Category> {
@@ -20,8 +22,9 @@ public class CustomCategoryAdapter extends ArrayAdapter<Category> {
         this.bookCategory = bookCategory;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = context.getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.custom_list_category, null, true);
 

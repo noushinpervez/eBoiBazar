@@ -14,13 +14,13 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class CustomBooksAdapter extends RecyclerView.Adapter<CustomBooksAdapter.BookViewHolder> {
+public class CustomAllBooksAdapter extends RecyclerView.Adapter<CustomAllBooksAdapter.BookViewHolder> {
 
     Context context;
     ArrayList<Book> bookArrayList;
     private OnItemClickListener listener;
 
-    public CustomBooksAdapter(Context context, ArrayList<Book> bookArrayList) {
+    public CustomAllBooksAdapter(Context context, ArrayList<Book> bookArrayList) {
         this.context = context;
         this.bookArrayList = bookArrayList;
     }
@@ -44,7 +44,7 @@ public class CustomBooksAdapter extends RecyclerView.Adapter<CustomBooksAdapter.
 
     @Override
     public int getItemCount() {
-        return Math.min(bookArrayList.size(), 7);
+        return bookArrayList.size();
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -75,8 +75,9 @@ public class CustomBooksAdapter extends RecyclerView.Adapter<CustomBooksAdapter.
         public void onClick(View v) {
             if (listener != null) {
                 int position = getAdapterPosition();
-
-                if (position != RecyclerView.NO_POSITION) listener.onItemClick(position);
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(position);
+                }
             }
         }
     }

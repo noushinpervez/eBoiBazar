@@ -50,6 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvOverview">
 
+        <!-- users -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardUser"
             android:layout_width="0dp"
@@ -100,6 +101,7 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!-- categories -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardCategory"
             android:layout_width="0dp"
@@ -150,6 +152,7 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!-- books -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardBook"
             android:layout_width="0dp"
@@ -227,6 +230,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAdd">
 
+        <!-- add new category -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardAddCat"
             android:layout_width="0dp"
@@ -271,6 +275,7 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!-- add new book -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardAddBook"
             android:layout_width="0dp"

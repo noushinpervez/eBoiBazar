@@ -43,6 +43,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,17 +51,16 @@ import java.util.List;
 public class AddBookInfoActivity extends AppCompatActivity {
 
     String[] language = {"Bangla", "English"};
-    private EditText etBookName, etAuthor, etPrice, etCopies, etBookLength, etPublication, etEdition, etISBN, etKeywords, etDescription;
+    private EditText etBookName, etAuthor, etPrice, etCopies, etBookLength, etPublication, etEdition, etISBN, etKeywords, etPublishYear, etDescription;
     private RadioButton rbInStock, rbOutOfStock;
     private Spinner spinnerLan;
-    private ChipGroup chipGroupCat;
+    private ChipGroup chipCategory;
     private ImageView imgBookCover;
     private LinearProgressIndicator progressIndicator;
     private RadioGroup rgStockStatus;
     private Toolbar toolbar;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
-    private String image = "";
     private Uri uri;
 
     @Override
@@ -80,7 +80,8 @@ public class AddBookInfoActivity extends AppCompatActivity {
                 Chip chip = new Chip(this);
                 chip.setText(category.getCategory());
                 chip.setCheckable(true);
-                chipGroupCat.addView(chip);
+                chip.setEnsureMinTouchTargetSize(false);
+                chipCategory.addView(chip);
             }
         }
 
@@ -137,7 +138,7 @@ public class AddBookInfoActivity extends AppCompatActivity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 byte[] bytes = stream.toByteArray();
-                image = Base64.encodeToString(bytes, Base64.DEFAULT);
+                String image = Base64.encodeToString(bytes, Base64.DEFAULT);
                 imgBookCover.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -161,18 +162,19 @@ public class AddBookInfoActivity extends AppCompatActivity {
         String edition = etEdition.getText().toString().trim();
         String isbn = etISBN.getText().toString().trim();
         String keywords = etKeywords.getText().toString().trim();
+        String publishYearStr = etPublishYear.getText().toString().trim();
         String language = spinnerLan.getSelectedItem().toString().trim();
         String description = etDescription.getText().toString().trim();
         String stockStatus = rbInStock.isChecked() ? rbInStock.getText().toString() : rbOutOfStock.getText().toString();
 
         List<String> selectedCat = new ArrayList<>();
-        for (int i = 0; i < chipGroupCat.getChildCount(); i++) {
-            Chip chip = (Chip) chipGroupCat.getChildAt(i);
+        for (int i = 0; i < chipCategory.getChildCount(); i++) {
+            Chip chip = (Chip) chipCategory.getChildAt(i);
             if (chip.isChecked()) selectedCat.add(chip.getText().toString());
         }
         String category = TextUtils.join(", ", selectedCat);
 
-        if (bookName.isEmpty() || author.isEmpty() || category.isEmpty() || uri == null || priceStr.isEmpty() || copiesStr.isEmpty() || bookLengthStr.isEmpty() || publication.isEmpty() || isbn.isEmpty() || keywords.isEmpty() || language.isEmpty() || description.isEmpty() || rgStockStatus.getCheckedRadioButtonId() == -1) {
+        if (bookName.isEmpty() || author.isEmpty() || category.isEmpty() || uri == null || priceStr.isEmpty() || copiesStr.isEmpty() || bookLengthStr.isEmpty() || publication.isEmpty() || isbn.isEmpty() || keywords.isEmpty() || publishYearStr.isEmpty() || language.isEmpty() || description.isEmpty() || rgStockStatus.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please provide information for required fields", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -242,13 +244,20 @@ public class AddBookInfoActivity extends AppCompatActivity {
             return;
         }
 
+        int publishYear = Integer.parseInt(publishYearStr);
+        if (publishYear < 1950 || publishYear > Year.now().getValue()) {
+            etPublishYear.setError("Please enter a valid year");
+            etPublishYear.requestFocus();
+            return;
+        }
+
         if (language.equals("Select language")) {
             Toast.makeText(this, "Please select a language", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (description.length() < 4 || description.length() > 500) {
-            etDescription.setError("Please enter a valid description (4-500 characters)");
+        if (description.length() < 4 || description.length() > 1000) {
+            etDescription.setError("Please enter a valid description (4-1000 characters)");
             etDescription.requestFocus();
             return;
         }
@@ -266,11 +275,11 @@ public class AddBookInfoActivity extends AppCompatActivity {
                             Uri downloadUrl = task.getResult();
 
                             String key = databaseReference.push().getKey();
-                            Book book = new Book(bookName, author, category, downloadUrl.toString(), price, copies, bookLength, publication, edition, isbn, keywords, language, description, stockStatus);
+                            Book book = new Book(bookName, author, category, downloadUrl.toString(), price, copies, bookLength, publication, edition, isbn, keywords, publishYear, language, description, stockStatus);
                             databaseReference.child(key).setValue(book);
                             Toast.makeText(AddBookInfoActivity.this, "Book inserted successfully", Toast.LENGTH_SHORT).show();
 
-                            clearText();
+                            clear();
                         } else
                             Toast.makeText(AddBookInfoActivity.this, "Failed to get download URL", Toast.LENGTH_SHORT).show();
                     }
@@ -307,17 +316,32 @@ public class AddBookInfoActivity extends AppCompatActivity {
         return adapter;
     }
 
-    private void clearText() {
+    private void clear() {
         etBookName.getText().clear();
+        etBookName.clearFocus();
         etAuthor.getText().clear();
-        imgBookCover.setImageResource(R.drawable.book_cover);
+        etAuthor.clearFocus();
+        chipCategory.clearCheck();
+        imgBookCover.setImageResource(R.drawable.library_outline);
         etPrice.getText().clear();
+        etPrice.clearFocus();
+        etCopies.getText().clear();
+        etCopies.clearFocus();
         etBookLength.getText().clear();
+        etBookLength.clearFocus();
         etPublication.getText().clear();
+        etPublication.clearFocus();
         etEdition.getText().clear();
+        etEdition.clearFocus();
         etISBN.getText().clear();
+        etISBN.clearFocus();
         etKeywords.getText().clear();
+        etKeywords.clearFocus();
+        etPublishYear.getText().clear();
+        etPublishYear.clearFocus();
+        spinnerLan.setSelection(0);
         etDescription.getText().clear();
+        etDescription.clearFocus();
         rgStockStatus.clearCheck();
     }
 
@@ -332,11 +356,12 @@ public class AddBookInfoActivity extends AppCompatActivity {
         etEdition = findViewById(R.id.etEdition);
         etISBN = findViewById(R.id.etISBN);
         etKeywords = findViewById(R.id.etKeywords);
+        etPublishYear = findViewById(R.id.etPublishYear);
         etDescription = findViewById(R.id.etDescription);
         rgStockStatus = findViewById(R.id.rgStockStatus);
         rbInStock = findViewById(R.id.rbInStock);
         rbOutOfStock = findViewById(R.id.rbOutOfStock);
-        chipGroupCat = findViewById(R.id.chipGroupCat);
+        chipCategory = findViewById(R.id.chipCategory);
         spinnerLan = findViewById(R.id.spinnerLan);
         toolbar = findViewById(R.id.toolbar);
         progressIndicator = findViewById(R.id.progressIndicator);

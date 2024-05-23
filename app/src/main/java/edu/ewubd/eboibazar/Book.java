@@ -1,10 +1,13 @@
 package edu.ewubd.eboibazar;
 
-public class Book {
-    String bookName, author, category, image, publication, edition, isbn, keywords, language, description, stockStatus;
-    int price, copies, bookLength;
+import java.io.Serializable;
 
-    public Book(String bookName, String author, String category, String image, int price, int copies, int bookLength, String publication, String edition, String isbn, String keywords, String language, String description, String stockStatus) {
+public class Book implements Serializable {
+
+    String bookName, author, category, image, publication, edition, isbn, keywords, language, description, stockStatus;
+    int price, copies, bookLength, publishYear;
+
+    public Book(String bookName, String author, String category, String image, int price, int copies, int bookLength, String publication, String edition, String isbn, String keywords, int publishYear, String language, String description, String stockStatus) {
         this.bookName = bookName;
         this.author = author;
         this.category = category;
@@ -16,6 +19,7 @@ public class Book {
         this.edition = edition;
         this.isbn = isbn;
         this.keywords = keywords;
+        this.publishYear = publishYear;
         this.language = language;
         this.description = description;
         this.stockStatus = stockStatus;
@@ -110,6 +114,14 @@ public class Book {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
+    }
+
+    public int getPublishYear() {
+        return publishYear;
+    }
+
+    public void setPublishYear(int publishYear) {
+        this.publishYear = publishYear;
     }
 
     public String getLanguage() {
