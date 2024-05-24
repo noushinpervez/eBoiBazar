@@ -47,8 +47,8 @@ public class AddCategoryActivity extends AppCompatActivity {
     private void saveData() {
         String category = etCategory.getText().toString().trim();
 
-        if (category.isEmpty() || category.length() < 4 || category.length() > 20 || !category.matches("^[a-zA-Z0-9 ]+$")) {
-            textCat.setError("Please enter a valid category (4-20 alphanumeric characters)");
+        if (category.isEmpty() || category.length() < 4 || category.length() > 20 || !category.matches("^[a-zA-Z ]+$")) {
+            textCat.setError("Please enter a valid category (4-20 letters and spaces only)");
             etCategory.requestFocus();
             return;
         }
@@ -58,7 +58,6 @@ public class AddCategoryActivity extends AppCompatActivity {
         databaseReference.child(key).setValue(bookCategory);
         Toast.makeText(AddCategoryActivity.this, "Book category inserted successfully", Toast.LENGTH_SHORT).show();
 
-        etCategory.getText().clear();
-        etCategory.clearFocus();
+        finish();
     }
 }

@@ -1,6 +1,7 @@
 package edu.ewubd.eboibazar;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -11,17 +12,33 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String SELECTED_FRAGMENT_KEY = "selectedFragment";
     BottomNavigationView bottomNav;
     private int selectedFragmentId = R.id.navHome; // default selected fragment
+    private DatabaseReference databaseReference;
+    private CategoryDB categoryDB;
+    private ArrayList<Category> bookCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bookCategory = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Categories");
+        categoryDB = new CategoryDB(this);
+
+        new LoadCategoriesTask().execute();
 
         // restore selected fragment if activity is recreated
         if (savedInstanceState != null)
@@ -75,5 +92,62 @@ public class MainActivity extends AppCompatActivity {
     public void switchToHomeFragment() {
         bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setSelectedItemId(R.id.navHome);
+    }
+
+    private class LoadCategoriesTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            loadCategories();
+            return null;
+        }
+
+        private void loadCategories() {
+            databaseReference.orderByChild("category").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    bookCategory.clear();
+                    ArrayList<String> firebaseKeys = new ArrayList<>();
+
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        String key = dataSnapshot.getKey();
+                        Category category = dataSnapshot.getValue(Category.class);
+
+                        if (category != null) {
+                            category.setKey(key);
+                            bookCategory.add(category);
+                            categoryDB.addCategory(key, category);
+                            firebaseKeys.add(key);
+                        }
+                    }
+
+                    removeDeletedCategories(firebaseKeys);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(MainActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    loadLocalCategories();
+                }
+            });
+        }
+
+        private void loadLocalCategories() {
+            ArrayList<Category> categories = categoryDB.getAllCategories();
+
+            if (!categories.isEmpty()) {
+                bookCategory.clear();
+                bookCategory.addAll(categories);
+            }
+        }
+
+        private void removeDeletedCategories(ArrayList<String> firebaseKeys) {
+            ArrayList<Category> localCategories = categoryDB.getAllCategories();
+
+            for (Category localCategory : localCategories) {
+                if (!firebaseKeys.contains(localCategory.getKey())) {
+                    categoryDB.deleteCategory(localCategory.getKey());
+                }
+            }
+        }
     }
 }

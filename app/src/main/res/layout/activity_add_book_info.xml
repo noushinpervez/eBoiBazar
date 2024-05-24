@@ -329,9 +329,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:gravity="top|start"
-                android:inputType="textMultiLine"
-                android:maxLines="10"
-                android:scrollbars="vertical" />
+                android:inputType="text|textMultiLine"
+                android:maxLength="500"
+                android:maxLines="15"
+                android:singleLine="false"
+                android:scrollbars="horizontal" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

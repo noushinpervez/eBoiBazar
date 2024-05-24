@@ -1,26 +1,20 @@
 package edu.ewubd.eboibazar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class CategoryFragment extends Fragment {
 
-    DatabaseReference databaseReference;
     private ArrayList<Category> bookCategory;
     private CustomCategoryAdapter customCategoryAdapter;
     private CategoryDB categoryDB;
@@ -34,41 +28,24 @@ public class CategoryFragment extends Fragment {
 
         ListView lvCategory = view.findViewById(R.id.lvCategory);
         bookCategory = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Categories");
         customCategoryAdapter = new CustomCategoryAdapter(getActivity(), bookCategory);
         categoryDB = new CategoryDB(getActivity());
 
-        loadLocalCategories();
-        loadData();
-
         lvCategory.setAdapter(customCategoryAdapter);
 
-        return view;
-    }
+        loadLocalCategories();
 
-    private void loadData() {
-        databaseReference.orderByChild("category").addListenerForSingleValueEvent(new ValueEventListener() {
+        lvCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                bookCategory.clear();
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    String key = dataSnapshot.getKey();
-                    Category category = dataSnapshot.getValue(Category.class);
-                    category.setKey(key);
-
-                    bookCategory.add(category);
-                    categoryDB.addCategory(key, category);
-                }
-
-                customCategoryAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Database error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Category selectedCategory = bookCategory.get(position);
+                Intent i = new Intent(getActivity(), ShowBooksActivity.class);
+                i.putExtra("selectedCategory", selectedCategory.getCategory());
+                startActivity(i);
             }
         });
+
+        return view;
     }
 
     private void loadLocalCategories() {
@@ -78,6 +55,6 @@ public class CategoryFragment extends Fragment {
             bookCategory.clear();
             bookCategory.addAll(categories);
             customCategoryAdapter.notifyDataSetChanged();
-        }
+        } else Toast.makeText(getActivity(), "No categories available", Toast.LENGTH_LONG).show();
     }
 }

@@ -20,7 +20,7 @@
         <item name="android:color">@color/secondary30</item>
     </style>
 
-    <style name="ShapeAppearance.Image.PILL" parent="">
+    <style name="ShapeAppearance.Image.PILL.User" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
@@ -45,6 +45,11 @@
         <item name="backgroundTint">@color/secondary30</item>
         <item name="android:textColor">@color/text</item>
         <item name="cornerRadius">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.Image.PILL.Cover" parent="">
+        <item name="cornerSize">10%</item>
+        <item name="cornerFamily">rounded</item>
     </style>
 
     <style name="Theme.EBoiBazar" parent="Base.Theme.EBoiBazar" />

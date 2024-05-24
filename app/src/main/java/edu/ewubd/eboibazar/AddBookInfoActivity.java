@@ -256,8 +256,8 @@ public class AddBookInfoActivity extends AppCompatActivity {
             return;
         }
 
-        if (description.length() < 4 || description.length() > 1000) {
-            etDescription.setError("Please enter a valid description (4-1000 characters)");
+        if (description.length() < 4 || description.length() > 500) {
+            etDescription.setError("Please enter a valid description (4-500 characters)");
             etDescription.requestFocus();
             return;
         }

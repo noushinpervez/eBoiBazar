@@ -108,6 +108,10 @@ public class DashboardActivity extends AppCompatActivity {
                 Toast.makeText(DashboardActivity.this, "Database error" + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+
+        databaseReferenceCat.keepSynced(true);
+        databaseReferenceUsers.keepSynced(true);
+        databaseReferenceBooks.keepSynced(true);
     }
 
     private void loadLocalCounts() {

@@ -20,13 +20,22 @@
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:text="Title"
             android:textColor="@color/text"
             android:textSize="18sp"
             android:textStyle="bold" />
 
     </androidx.appcompat.widget.Toolbar>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_secondary"
+        app:iconifiedByDefault="false"
+        app:queryHint="Search by book, writer or category" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAllBooks"

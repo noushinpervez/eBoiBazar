@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
 
         showSplash();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 processBookData(snapshot);
@@ -66,6 +66,8 @@ public class HomeFragment extends Fragment {
                 hideSplash();
             }
         });
+
+        databaseReference.keepSynced(true);
 
         setButtonListeners();
 
@@ -161,6 +163,7 @@ public class HomeFragment extends Fragment {
 
     private void processBookData(DataSnapshot snapshot) {
         bookArrayList.clear();
+        newArrivalsList.clear();
         banglaBooksList.clear();
         englishBooksList.clear();
 
@@ -174,8 +177,8 @@ public class HomeFragment extends Fragment {
                 englishBooksList.add(book);
         }
 
-        newArrivalsList = new ArrayList<>(bookArrayList);
-        newArrivalsList.sort((b1, b2) -> Integer.compare(b2.getPublishYear(), b1.getPublishYear()));
+        bookArrayList.sort((b1, b2) -> Integer.compare(b2.getPublishYear(), b1.getPublishYear()));
+        newArrivalsList.addAll(bookArrayList.subList(0, Math.min(bookArrayList.size(), 20)));
     }
 
     private void showSplash() {

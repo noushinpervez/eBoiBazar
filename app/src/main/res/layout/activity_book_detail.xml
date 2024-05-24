@@ -21,7 +21,6 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:fillViewport="true"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@id/bottomSection"
@@ -63,15 +62,16 @@
                 app:layout_constraintTop_toBottomOf="@id/tvBookName" />
 
             <!-- book cover -->
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgBookCover"
-                android:layout_width="128dp"
-                android:layout_height="200dp"
+                android:layout_width="152dp"
+                android:layout_height="224dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvAuthor"
-                app:srcCompat="@drawable/library_outline" />
+                app:srcCompat="@drawable/library_outline"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Image.PILL.Cover" />
 
             <!-- price -->
             <TextView

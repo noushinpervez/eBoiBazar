@@ -4,6 +4,7 @@
     android:layout_width="180dp"
     android:layout_height="320dp"
     android:layout_margin="4dp"
+    android:foreground="@drawable/button_secondary_foreground"
     app:cardBackgroundColor="@color/secondary30"
     app:cardCornerRadius="16dp"
     app:cardElevation="0dp"
@@ -16,12 +17,13 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgBookCover"
-            android:layout_width="128dp"
+            android:layout_width="136dp"
             android:layout_height="192dp"
             android:layout_gravity="center"
-            android:src="@drawable/library_outline" />
+            android:src="@drawable/library_outline"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Image.PILL.Cover" />
 
         <TextView
             android:id="@+id/tvBookName"

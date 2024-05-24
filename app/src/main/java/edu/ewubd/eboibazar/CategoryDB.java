@@ -65,4 +65,10 @@ public class CategoryDB extends SQLiteOpenHelper {
 
         return categories;
     }
+
+    public void deleteCategory(String key) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("categories", "id=?", new String[]{key});
+        db.close();
+    }
 }

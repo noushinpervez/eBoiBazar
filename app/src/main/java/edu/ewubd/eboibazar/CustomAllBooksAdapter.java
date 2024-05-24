@@ -13,12 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomAllBooksAdapter extends RecyclerView.Adapter<CustomAllBooksAdapter.BookViewHolder> {
 
     Context context;
     ArrayList<Book> bookArrayList;
     private OnItemClickListener listener;
+
+    public void setFilteredList(ArrayList<Book> filteredList) {
+        this.bookArrayList = filteredList;
+        notifyDataSetChanged();
+    }
 
     public CustomAllBooksAdapter(Context context, ArrayList<Book> bookArrayList) {
         this.context = context;
