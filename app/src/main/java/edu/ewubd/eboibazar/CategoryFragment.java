@@ -14,8 +14,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 public class CategoryFragment extends Fragment {
-
-    private ArrayList<Category> bookCategory;
+    private ArrayList<Category> category;
     private CustomCategoryAdapter customCategoryAdapter;
     private CategoryDB categoryDB;
 
@@ -27,8 +26,8 @@ public class CategoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
 
         ListView lvCategory = view.findViewById(R.id.lvCategory);
-        bookCategory = new ArrayList<>();
-        customCategoryAdapter = new CustomCategoryAdapter(getActivity(), bookCategory);
+        category = new ArrayList<>();
+        customCategoryAdapter = new CustomCategoryAdapter(getActivity(), category);
         categoryDB = new CategoryDB(getActivity());
 
         lvCategory.setAdapter(customCategoryAdapter);
@@ -38,7 +37,7 @@ public class CategoryFragment extends Fragment {
         lvCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Category selectedCategory = bookCategory.get(position);
+                Category selectedCategory = category.get(position);
                 Intent i = new Intent(getActivity(), ShowBooksActivity.class);
                 i.putExtra("selectedCategory", selectedCategory.getCategory());
                 startActivity(i);
@@ -50,10 +49,9 @@ public class CategoryFragment extends Fragment {
 
     private void loadLocalCategories() {
         ArrayList<Category> categories = categoryDB.getAllCategories();
-
         if (!categories.isEmpty()) {
-            bookCategory.clear();
-            bookCategory.addAll(categories);
+            category.clear();
+            category.addAll(categories);
             customCategoryAdapter.notifyDataSetChanged();
         } else Toast.makeText(getActivity(), "No categories available", Toast.LENGTH_LONG).show();
     }

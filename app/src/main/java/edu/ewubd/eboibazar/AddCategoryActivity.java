@@ -13,7 +13,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AddCategoryActivity extends AppCompatActivity {
-
     private DatabaseReference databaseReference;
     private TextInputLayout textCat;
     private EditText etCategory;
@@ -23,11 +22,11 @@ public class AddCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_category);
 
+        etCategory = findViewById(R.id.etCategory);
+        textCat = findViewById(R.id.category);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Categories");
-        etCategory = findViewById(R.id.etCategory);
-        textCat = findViewById(R.id.category);
 
         findViewById(R.id.btnAddCat).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +56,7 @@ public class AddCategoryActivity extends AppCompatActivity {
         Category bookCategory = new Category(key, category);
         databaseReference.child(key).setValue(bookCategory);
         Toast.makeText(AddCategoryActivity.this, "Book category inserted successfully", Toast.LENGTH_SHORT).show();
-
+        databaseReference.keepSynced(true);
         finish();
     }
 }

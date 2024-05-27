@@ -13,22 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CustomAllBooksAdapter extends RecyclerView.Adapter<CustomAllBooksAdapter.BookViewHolder> {
-
     Context context;
     ArrayList<Book> bookArrayList;
-    private OnItemClickListener listener;
-
-    public void setFilteredList(ArrayList<Book> filteredList) {
-        this.bookArrayList = filteredList;
-        notifyDataSetChanged();
-    }
+    OnItemClickListener listener;
 
     public CustomAllBooksAdapter(Context context, ArrayList<Book> bookArrayList) {
         this.context = context;
         this.bookArrayList = bookArrayList;
+    }
+
+    public void setFilteredList(ArrayList<Book> filteredList) {
+        this.bookArrayList = filteredList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -62,7 +60,6 @@ public class CustomAllBooksAdapter extends RecyclerView.Adapter<CustomAllBooksAd
     }
 
     public class BookViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         TextView tvBookName, tvAuthor, tvPrice;
         ImageView imgBookCover;
 
@@ -81,9 +78,7 @@ public class CustomAllBooksAdapter extends RecyclerView.Adapter<CustomAllBooksAd
         public void onClick(View v) {
             if (listener != null) {
                 int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(position);
-                }
+                if (position != RecyclerView.NO_POSITION) listener.onItemClick(position);
             }
         }
     }

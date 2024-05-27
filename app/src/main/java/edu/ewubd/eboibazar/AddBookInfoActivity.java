@@ -49,7 +49,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AddBookInfoActivity extends AppCompatActivity {
-
     String[] language = {"Bangla", "English"};
     private EditText etBookName, etAuthor, etPrice, etCopies, etBookLength, etPublication, etEdition, etISBN, etKeywords, etPublishYear, etDescription;
     private RadioButton rbInStock, rbOutOfStock;
@@ -69,12 +68,12 @@ public class AddBookInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_book_info);
 
         initialize();
+
         databaseReference = FirebaseDatabase.getInstance().getReference("Books");
         storageReference = FirebaseStorage.getInstance().getReference("Books");
+
         CategoryDB categoryDB = new CategoryDB(this);
-
         ArrayList<Category> categories = categoryDB.getAllCategories();
-
         if (categories != null && !categories.isEmpty()) {
             for (Category category : categories) {
                 Chip chip = new Chip(this);
@@ -129,10 +128,8 @@ public class AddBookInfoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             uri = data.getData();
-
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -273,12 +270,10 @@ public class AddBookInfoActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Uri> task) {
                         if (task.isSuccessful()) {
                             Uri downloadUrl = task.getResult();
-
                             String key = databaseReference.push().getKey();
                             Book book = new Book(bookName, author, category, downloadUrl.toString(), price, copies, bookLength, publication, edition, isbn, keywords, publishYear, language, description, stockStatus);
                             databaseReference.child(key).setValue(book);
                             Toast.makeText(AddBookInfoActivity.this, "Book inserted successfully", Toast.LENGTH_SHORT).show();
-
                             clear();
                         } else
                             Toast.makeText(AddBookInfoActivity.this, "Failed to get download URL", Toast.LENGTH_SHORT).show();
@@ -298,6 +293,8 @@ public class AddBookInfoActivity extends AppCompatActivity {
                 progressIndicator.setProgress(Math.toIntExact(snapshot.getBytesTransferred()));
             }
         });
+
+        databaseReference.keepSynced(true);
     }
 
     private ArrayAdapter<String> getArrayAdapter(String[] items, String defaultText) {

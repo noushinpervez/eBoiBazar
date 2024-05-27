@@ -332,8 +332,8 @@
                 android:inputType="text|textMultiLine"
                 android:maxLength="500"
                 android:maxLines="15"
-                android:singleLine="false"
-                android:scrollbars="horizontal" />
+                android:scrollbars="horizontal"
+                android:singleLine="false" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -387,9 +387,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:indicatorColor="@color/primary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:trackColor="@color/secondary" />
+            app:trackColor="@color/secondaryInverse" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

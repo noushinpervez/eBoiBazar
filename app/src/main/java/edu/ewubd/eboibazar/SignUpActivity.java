@@ -40,7 +40,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
-
     private FirebaseAuth mAuth;
     private Users users;
     private String errMsg = "";
@@ -50,6 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Button btnAuth, btnDynamic;
     private ProgressBar progressBar;
     private boolean isSignup = true;
+    private FirebaseUser user;
     private FirebaseDatabase database;
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -133,10 +133,8 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 hideProgressBar();
-
                 if (task.isSuccessful()) {
-                    FirebaseUser user = mAuth.getCurrentUser();
-
+                    user = mAuth.getCurrentUser();
                     users = new Users();
                     if (user != null) {
                         users.setUserId(user.getUid());
@@ -183,9 +181,12 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 hideProgressBar();
-
-                if (task.isSuccessful()) signInToast();
-                else {
+                if (task.isSuccessful()) {
+                    Toast.makeText(SignUpActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(SignUpActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                } else {
                     if (task.getException() instanceof FirebaseAuthInvalidCredentialsException || task.getException() instanceof FirebaseAuthInvalidUserException)
                         errMsg = "Invalid email or password";
                     else if (task.getException() != null)
@@ -207,10 +208,8 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == 200) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseGoogleAuth(account.getIdToken());
@@ -234,10 +233,8 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 hideProgressBar();
-
                 if (task.isSuccessful()) {
-                    FirebaseUser user = mAuth.getCurrentUser();
-
+                    user = mAuth.getCurrentUser();
                     users = new Users();
                     if (user != null) {
                         users.setUserId(user.getUid());
@@ -250,8 +247,12 @@ public class SignUpActivity extends AppCompatActivity {
                         database.getReference().child("Users").child(user.getUid()).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) signInToast();
-                                else {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(SignUpActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(SignUpActivity.this, MainActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                } else {
                                     errMsg = task.getException() != null ? task.getException().getMessage() : "Please try again later";
                                     Toast.makeText(SignUpActivity.this, "Database error: " + errMsg, Toast.LENGTH_LONG).show();
                                 }
@@ -316,7 +317,6 @@ public class SignUpActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         };
-
         etEmail.addTextChangedListener(clearErrorTextWatcher);
         etPW.addTextChangedListener(clearErrorTextWatcher);
         etRPW.addTextChangedListener(clearErrorTextWatcher);
@@ -337,12 +337,5 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
-    }
-
-    private void signInToast() {
-        Intent i = new Intent(SignUpActivity.this, MainActivity.class);
-        i.putExtra("showToast", true);
-        startActivity(i);
-        finish();
     }
 }

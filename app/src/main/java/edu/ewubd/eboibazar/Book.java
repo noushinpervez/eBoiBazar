@@ -3,9 +3,9 @@ package edu.ewubd.eboibazar;
 import java.io.Serializable;
 
 public class Book implements Serializable {
-
     String bookName, author, category, image, publication, edition, isbn, keywords, language, description, stockStatus;
     int price, copies, bookLength, publishYear;
+    int matchedCategoriesCount;
 
     public Book(String bookName, String author, String category, String image, int price, int copies, int bookLength, String publication, String edition, String isbn, String keywords, int publishYear, String language, String description, String stockStatus) {
         this.bookName = bookName;
@@ -146,5 +146,13 @@ public class Book implements Serializable {
 
     public void setStockStatus(String stockStatus) {
         this.stockStatus = stockStatus;
+    }
+
+    public int getTotalCount() {
+        return matchedCategoriesCount;
+    }
+
+    public void setTotalCount(int matchedCategoriesCount) {
+        this.matchedCategoriesCount = matchedCategoriesCount;
     }
 }

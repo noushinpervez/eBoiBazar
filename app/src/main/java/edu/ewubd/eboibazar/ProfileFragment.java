@@ -29,11 +29,10 @@ import java.io.IOException;
 import java.net.URL;
 
 public class ProfileFragment extends Fragment {
-
-    FirebaseAuth mAuth;
     // options for the ListView
-    String[] options = {"About Us", "Questions and Help"};
-    int[] optionIcons = {R.drawable.information_outline, R.drawable.help_circle_outline};
+    String[] options = {"Order History", "About Us"};
+    int[] optionIcons = {R.drawable.history, R.drawable.information_outline};
+    private FirebaseAuth mAuth;
     private FirebaseUser user;
     private TextView tvEmail, tvName;
     private ImageView photo;
@@ -58,7 +57,7 @@ public class ProfileFragment extends Fragment {
         CustomOptionsAdapter customOptionsAdapter = new CustomOptionsAdapter(requireActivity().getApplicationContext(), options, optionIcons);
         lvOptions.setAdapter(customOptionsAdapter);
 
-        updateProfileInfo();
+        showProfileInfo();
 
         view.findViewById(R.id.clickableLayout).setOnClickListener(v -> {
             if (user == null) {
@@ -80,7 +79,11 @@ public class ProfileFragment extends Fragment {
                 // navigate to different activities in options
                 switch (position) {
                     case 0:
-                        Intent i = new Intent(getActivity(), AboutUs.class);
+                        Intent i = new Intent(getActivity(), OrderHistoryActivity.class);
+                        startActivity(i);
+                        break;
+                    case 1:
+                        i = new Intent(getActivity(), AboutUs.class);
                         startActivity(i);
                         break;
                     default:
@@ -92,7 +95,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private void updateProfileInfo() {
+    private void showProfileInfo() {
         if (user != null) {
             String email = user.getEmail();
             String name = user.getDisplayName() != null ? user.getDisplayName() : email.substring(0, email.indexOf('@'));
@@ -134,7 +137,6 @@ public class ProfileFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-
         AlertDialog alert = builder.create();
         alert.show();
     }

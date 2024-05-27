@@ -203,6 +203,56 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardOrders"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:elevation="0dp"
+            app:cardBackgroundColor="@color/color4"
+            app:cardCornerRadius="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="32dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/moped_outline" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Orders"
+                    android:textColor="@color/secondaryInverse"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvOrdersCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/secondaryInverse"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
     </GridLayout>
 
     <TextView
@@ -321,5 +371,27 @@
         </androidx.cardview.widget.CardView>
 
     </GridLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnOrder"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/secondary"
+        android:minHeight="80dp"
+        android:padding="16dp"
+        android:text="Orders History"
+        android:textColor="@color/secondaryInverse"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/arrow_right_thin"
+        app:iconGravity="textEnd"
+        app:iconSize="32dp"
+        app:iconTint="@color/secondaryInverse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gridAddInfo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

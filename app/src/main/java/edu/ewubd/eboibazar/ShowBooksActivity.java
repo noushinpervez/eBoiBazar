@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ShowBooksActivity extends AppCompatActivity {
-
     private RecyclerView rvAllBooks;
     private CustomAllBooksAdapter customAllBooksAdapter;
     private ArrayList<Book> bookArrayList, filteredBooks;
@@ -40,6 +39,9 @@ public class ShowBooksActivity extends AppCompatActivity {
         TextView toolbarTitle = findViewById(R.id.toolbarTitle);
         SearchView searchView = findViewById(R.id.searchView);
         searchView.clearFocus();
+
+        bookArrayList = new ArrayList<>();
+        filteredBooks = new ArrayList<>();
 
         Intent i = getIntent();
         if (i != null && i.hasExtra("bookArrayList")) {
@@ -89,14 +91,21 @@ public class ShowBooksActivity extends AppCompatActivity {
     }
 
     private void filterBooks(String text) {
-        ArrayList<Book> filteredBooks = new ArrayList<>();
+        ArrayList<Book> filteredList = new ArrayList<>();
 
-        for (Book book : bookArrayList) {
-            if (book.getBookName().toLowerCase().contains(text.toLowerCase()) || book.getAuthor().toLowerCase().contains(text.toLowerCase()) || book.getCategory().toLowerCase().contains(text.toLowerCase()))
-                filteredBooks.add(book);
+        if (!filteredBooks.isEmpty()) {
+            for (Book book : filteredBooks) {
+                if (book.getBookName().toLowerCase().contains(text.toLowerCase()) || book.getAuthor().toLowerCase().contains(text.toLowerCase()) || book.getCategory().toLowerCase().contains(text.toLowerCase()))
+                    filteredList.add(book);
+            }
+        } else {
+            for (Book book : bookArrayList) {
+                if (book.getBookName().toLowerCase().contains(text.toLowerCase()) || book.getAuthor().toLowerCase().contains(text.toLowerCase()) || book.getCategory().toLowerCase().contains(text.toLowerCase()))
+                    filteredList.add(book);
+            }
         }
 
-        customAllBooksAdapter.setFilteredList(filteredBooks);
+        customAllBooksAdapter.setFilteredList(filteredList);
     }
 
     private void fetchBooksByCategory(String category) {
@@ -105,10 +114,9 @@ public class ShowBooksActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 filteredBooks = new ArrayList<>();
-
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Book book = dataSnapshot.getValue(Book.class);
-                    String[] categories = book.getCategory().split(",");
+                    String[] categories = book.getCategory() != null ? book.getCategory().split(",") : new String[0];
 
                     for (String cat : categories) {
                         if (cat.trim().equalsIgnoreCase(category)) {
@@ -117,7 +125,6 @@ public class ShowBooksActivity extends AppCompatActivity {
                         }
                     }
                 }
-
                 customAllBooksAdapter = new CustomAllBooksAdapter(ShowBooksActivity.this, filteredBooks);
                 rvAllBooks.setAdapter(customAllBooksAdapter);
 

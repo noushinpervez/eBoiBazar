@@ -21,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     private static final String SELECTED_FRAGMENT_KEY = "selectedFragment";
     BottomNavigationView bottomNav;
     private int selectedFragmentId = R.id.navHome; // default selected fragment
@@ -43,11 +42,6 @@ public class MainActivity extends AppCompatActivity {
         // restore selected fragment if activity is recreated
         if (savedInstanceState != null)
             selectedFragmentId = savedInstanceState.getInt(SELECTED_FRAGMENT_KEY);
-
-        // show login toast from sign up activity
-        Intent i = getIntent();
-        if (i.getBooleanExtra("showToast", false))
-            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
 
         bottomNav = findViewById(R.id.bottomNav);
 
@@ -106,21 +100,18 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     bookCategory.clear();
-                    ArrayList<String> firebaseKeys = new ArrayList<>();
-
+                    ArrayList<String> categoryKeys = new ArrayList<>();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         String key = dataSnapshot.getKey();
                         Category category = dataSnapshot.getValue(Category.class);
-
                         if (category != null) {
                             category.setKey(key);
                             bookCategory.add(category);
                             categoryDB.addCategory(key, category);
-                            firebaseKeys.add(key);
+                            categoryKeys.add(key);
                         }
                     }
-
-                    removeDeletedCategories(firebaseKeys);
+                    removeDeletedCategories(categoryKeys);
                 }
 
                 @Override
@@ -129,24 +120,23 @@ public class MainActivity extends AppCompatActivity {
                     loadLocalCategories();
                 }
             });
+
+            databaseReference.keepSynced(true);
         }
 
         private void loadLocalCategories() {
             ArrayList<Category> categories = categoryDB.getAllCategories();
-
             if (!categories.isEmpty()) {
                 bookCategory.clear();
                 bookCategory.addAll(categories);
             }
         }
 
-        private void removeDeletedCategories(ArrayList<String> firebaseKeys) {
-            ArrayList<Category> localCategories = categoryDB.getAllCategories();
-
-            for (Category localCategory : localCategories) {
-                if (!firebaseKeys.contains(localCategory.getKey())) {
-                    categoryDB.deleteCategory(localCategory.getKey());
-                }
+        private void removeDeletedCategories(ArrayList<String> categoryKeys) {
+            ArrayList<Category> categories = categoryDB.getAllCategories();
+            for (Category category : categories) {
+                if (!categoryKeys.contains(category.getKey()))
+                    categoryDB.deleteCategory(category.getKey());
             }
         }
     }

@@ -1,7 +1,6 @@
 package edu.ewubd.eboibazar;
 
 public class Category {
-
     private String category, key;
 
     public Category(String key, String category) {
@@ -22,9 +21,5 @@ public class Category {
 
     public String getCategory() {
         return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 }

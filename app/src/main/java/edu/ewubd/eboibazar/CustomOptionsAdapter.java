@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CustomOptionsAdapter extends BaseAdapter {
-
     Context context;
     LayoutInflater inflater;
     String[] options;

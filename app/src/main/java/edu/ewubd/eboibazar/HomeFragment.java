@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,14 +28,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
-
     private RecyclerView rvAllBooks, rvNewArrivals, rvBanglaBooks, rvEnglishBooks;
     private CustomBooksAdapter customBooksAdapter, newArrivalsAdapter, banglaBooksAdapter, englishBooksAdapter;
     private ArrayList<Book> bookArrayList, newArrivalsList, banglaBooksList, englishBooksList;
     private LinearLayout splashLayout;
     private ScrollView homeLayout;
     private Toolbar toolbar;
-    private Button btnMoreBooks, btnMoreNewArrivals, btnMoreBanglaBooks, btnMoreEnglishBooks;
+    private TextView btnMoreBooks, btnMoreNewArrivals, btnMoreBanglaBooks, btnMoreEnglishBooks;
+    private FirebaseUser user;
+    private Button btnDashboard;
 
     public HomeFragment() {
     }
@@ -43,12 +47,12 @@ public class HomeFragment extends Fragment {
 
         initialize(view);
 
-        bookArrayList = new ArrayList<>();
-        newArrivalsList = new ArrayList<>();
-        banglaBooksList = new ArrayList<>();
-        englishBooksList = new ArrayList<>();
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Books");
+
+        if (user != null && user.getEmail().equals("admin@gmail.com"))
+            btnDashboard.setVisibility(View.VISIBLE);
+        else btnDashboard.setVisibility(View.GONE);
 
         showSplash();
 
@@ -66,12 +70,11 @@ public class HomeFragment extends Fragment {
                 hideSplash();
             }
         });
-
         databaseReference.keepSynced(true);
 
         setButtonListeners();
 
-        view.findViewById(R.id.btnDashboard).setOnClickListener(new View.OnClickListener() {
+        btnDashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), DashboardActivity.class);
@@ -79,6 +82,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        databaseReference.keepSynced(true);
         return view;
     }
 
@@ -177,8 +181,10 @@ public class HomeFragment extends Fragment {
                 englishBooksList.add(book);
         }
 
-        bookArrayList.sort((b1, b2) -> Integer.compare(b2.getPublishYear(), b1.getPublishYear()));
-        newArrivalsList.addAll(bookArrayList.subList(0, Math.min(bookArrayList.size(), 20)));
+        newArrivalsList = new ArrayList<>(bookArrayList);
+        newArrivalsList.sort((b1, b2) -> Integer.compare(b2.getPublishYear(), b1.getPublishYear()));
+        if (newArrivalsList.size() > 10)
+            newArrivalsList.subList(10, newArrivalsList.size()).clear();
     }
 
     private void showSplash() {
@@ -201,11 +207,11 @@ public class HomeFragment extends Fragment {
         btnMoreNewArrivals = view.findViewById(R.id.btnMoreNewArrivals);
         btnMoreBanglaBooks = view.findViewById(R.id.btnMoreBanglaBooks);
         btnMoreEnglishBooks = view.findViewById(R.id.btnMoreEnglishBooks);
-
         rvAllBooks = view.findViewById(R.id.rvAllBooks);
         rvNewArrivals = view.findViewById(R.id.rvNewArrivals);
         rvBanglaBooks = view.findViewById(R.id.rvBanglaBooks);
         rvEnglishBooks = view.findViewById(R.id.rvEnglishBooks);
+        btnDashboard = view.findViewById(R.id.btnDashboard);
 
         rvAllBooks.setHasFixedSize(true);
         rvNewArrivals.setHasFixedSize(true);
@@ -216,5 +222,10 @@ public class HomeFragment extends Fragment {
         rvNewArrivals.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         rvBanglaBooks.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         rvEnglishBooks.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        bookArrayList = new ArrayList<>();
+        newArrivalsList = new ArrayList<>();
+        banglaBooksList = new ArrayList<>();
+        englishBooksList = new ArrayList<>();
     }
 }

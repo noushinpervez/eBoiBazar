@@ -49,7 +49,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         android:background="@color/navBg"
         android:elevation="8dp">
 
@@ -87,7 +87,7 @@
         android:id="@+id/homeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="56dp"
         android:paddingBottom="48dp"
         android:scrollbars="none">
 
@@ -115,20 +115,17 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <com.google.android.material.button.MaterialButton
+                <TextView
                     android:id="@+id/btnMoreBooks"
-                    style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_secondary"
-                    android:foreground="@drawable/button_secondary_foreground"
-                    android:minHeight="20dp"
                     android:text="See more"
-                    android:textAllCaps="false"
-                    android:textColor="@color/text"
-                    app:cornerRadius="16dp" />
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -161,20 +158,17 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <com.google.android.material.button.MaterialButton
+                <TextView
                     android:id="@+id/btnMoreNewArrivals"
-                    style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_secondary"
-                    android:foreground="@drawable/button_secondary_foreground"
-                    android:minHeight="20dp"
                     android:text="See more"
-                    android:textAllCaps="false"
-                    android:textColor="@color/text"
-                    app:cornerRadius="16dp" />
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -206,21 +200,17 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <com.google.android.material.button.MaterialButton
+                <TextView
                     android:id="@+id/btnMoreBanglaBooks"
-                    style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_secondary"
-                    android:foreground="@drawable/button_secondary_foreground"
-                    android:minHeight="20dp"
                     android:text="See more"
-                    android:textAllCaps="false"
-                    android:textColor="@color/text"
-                    android:textStyle="bold"
-                    app:cornerRadius="16dp" />
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -252,21 +242,17 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <com.google.android.material.button.MaterialButton
+                <TextView
                     android:id="@+id/btnMoreEnglishBooks"
-                    style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_secondary"
-                    android:foreground="@drawable/button_secondary_foreground"
-                    android:minHeight="20dp"
                     android:text="See more"
-                    android:textAllCaps="false"
-                    android:textColor="@color/text"
-                    android:textStyle="bold"
-                    app:cornerRadius="16dp" />
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

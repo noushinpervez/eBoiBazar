@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 public class CategoryDB extends SQLiteOpenHelper {
-
     public CategoryDB(Context context) {
         super(context, "CategoryDB", null, 1);
     }
@@ -61,8 +60,8 @@ public class CategoryDB extends SQLiteOpenHelper {
         }
 
         if (cur != null) cur.close();
-        db.close();
 
+        db.close();
         return categories;
     }
 

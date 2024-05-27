@@ -19,8 +19,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgBookCover"
-            android:layout_width="136dp"
-            android:layout_height="192dp"
+            android:layout_width="120dp"
+            android:layout_height="184dp"
             android:layout_gravity="center"
             android:src="@drawable/library_outline"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Image.PILL.Cover" />

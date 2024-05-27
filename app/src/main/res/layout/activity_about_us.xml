@@ -19,7 +19,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:text="About Us"
             android:textColor="@color/text"
             android:textSize="18sp"
@@ -31,7 +30,7 @@
         android:id="@+id/about_us_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:text="Welcome to eBoiBazar"
         android:textColor="@color/text"
@@ -39,5 +38,21 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <TextView
+        android:id="@+id/about_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.8"
+        android:justificationMode="inter_word"
+        android:lineSpacingExtra="6sp"
+        android:text="We're your one-stop destination for all things books. With a wide selection, personalized recommendations, and seamless shopping experience, we're here to make discovering and purchasing your favorite reads easier than ever. Happy reading!\n\n
+        Our application was developed as part of the Mobile Application Development course (CSE489) during the Spring 2024 semester at East West University. Under the guidance of Md Mostofa Kamal Rasel, PhD, Assistant Professor in the Department of Computer Science and Engineering."
+        android:textColor="@color/text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/about_us_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
