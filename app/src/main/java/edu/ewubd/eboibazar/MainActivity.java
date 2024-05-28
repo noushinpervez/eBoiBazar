@@ -1,6 +1,5 @@
 package edu.ewubd.eboibazar;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void loadCategories() {
-            databaseReference.orderByChild("category").addListenerForSingleValueEvent(new ValueEventListener() {
+            databaseReference.orderByChild("category").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     bookCategory.clear();

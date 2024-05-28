@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
     private RecyclerView rvAllBooks, rvNewArrivals, rvBanglaBooks, rvEnglishBooks;
@@ -50,8 +51,7 @@ public class HomeFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Books");
 
-        if (user != null && user.getEmail().equals("admin@gmail.com"))
-            btnDashboard.setVisibility(View.VISIBLE);
+        if (isAdminUser()) btnDashboard.setVisibility(View.VISIBLE);
         else btnDashboard.setVisibility(View.GONE);
 
         showSplash();
@@ -227,5 +227,10 @@ public class HomeFragment extends Fragment {
         newArrivalsList = new ArrayList<>();
         banglaBooksList = new ArrayList<>();
         englishBooksList = new ArrayList<>();
+    }
+
+    private boolean isAdminUser() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        return user != null && (Objects.equals(user.getEmail(), "admineboibazar@gmail.com") || Objects.equals(user.getEmail(), "noushin9136@gmail.com"));
     }
 }

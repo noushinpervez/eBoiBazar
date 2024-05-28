@@ -92,7 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.google).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnGoogle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 googleSignIn();

@@ -88,6 +88,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     i.putExtra("totalAmount", totalAmount);
                     i.putExtra("userAddress", addressList);
                     startActivity(i);
+                    finish();
                 } else
                     Toast.makeText(PlaceOrderActivity.this, "Please provide your address before proceeding to payment", Toast.LENGTH_LONG).show();
             }

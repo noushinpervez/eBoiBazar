@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderHistoryActivity extends AppCompatActivity {
     private ListView lvOrders;
@@ -46,8 +47,8 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            String email = user.getEmail();
-            if (email != null && email.equals("admin@gmail.com")) loadAllUsersOrderHistory();
+            if ((Objects.equals(user.getEmail(), "eboibazaradmin@gmail.com") || Objects.equals(user.getEmail(), "noushin9136@gmail.com")))
+                loadAllUsersOrderHistory();
             else {
                 databaseReference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid());
                 loadOrderHistory();

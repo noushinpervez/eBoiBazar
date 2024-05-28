@@ -40,7 +40,7 @@
             android:text="Buy Books at Best Prices at eBoiBazar"
             android:textAlignment="center"
             android:textColor="@color/text"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -73,13 +73,13 @@
             android:foreground="@drawable/button_secondary_foreground"
             android:text="Dashboard"
             android:textAllCaps="false"
-            android:textColor="@color/primary"
+            android:textColor="@color/secondaryInverse"
             android:textSize="12sp"
             android:textStyle="bold"
             app:icon="@drawable/view_dashboard_outline"
             app:iconGravity="textEnd"
             app:iconSize="16dp"
-            app:iconTint="@color/primary" />
+            app:iconTint="@color/secondaryInverse" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -109,22 +109,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:text="All books"
                     android:textColor="@color/text"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/btnMoreBooks"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
+                    android:foreground="@drawable/button_secondary_foreground"
+                    android:padding="8dp"
                     android:text="See more"
                     android:textAlignment="textEnd"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/secondaryInverse"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -152,22 +153,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:text="New Arrivals"
                     android:textColor="@color/text"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/btnMoreNewArrivals"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
+                    android:foreground="@drawable/button_secondary_foreground"
+                    android:padding="8dp"
                     android:text="See more"
                     android:textAlignment="textEnd"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/secondaryInverse"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -194,22 +196,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:text="Bangla Books"
                     android:textColor="@color/text"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/btnMoreBanglaBooks"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
+                    android:foreground="@drawable/button_secondary_foreground"
+                    android:padding="8dp"
                     android:text="See more"
                     android:textAlignment="textEnd"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/secondaryInverse"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -239,19 +242,20 @@
                     android:layout_weight="2"
                     android:text="English Books"
                     android:textColor="@color/text"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/btnMoreEnglishBooks"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
+                    android:foreground="@drawable/button_secondary_foreground"
+                    android:padding="8dp"
                     android:text="See more"
                     android:textAlignment="textEnd"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/secondaryInverse"
                     android:textStyle="bold" />
 
             </LinearLayout>

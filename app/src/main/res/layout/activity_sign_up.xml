@@ -157,34 +157,27 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/social"
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGoogle"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvText"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:id="@+id/google"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/google"
-                android:foreground="@drawable/button_secondary_foreground" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
+            android:layout_alignStart="@id/textRPW"
+            android:layout_alignEnd="@id/textRPW"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/secondaryInverse"
+            android:minHeight="64dp"
+            android:text="Continue with Google"
+            android:textAllCaps="false"
+            android:textColor="@color/inverseText"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/google"
+            app:iconGravity="textStart"
+            app:iconSize="32dp"
+            app:iconTint="@null" />
 
         <LinearLayout
             android:id="@+id/dynamicLayout"
@@ -213,7 +206,7 @@
                 android:foreground="@drawable/button_secondary_foreground"
                 android:minHeight="48dp"
                 android:text="Sign Up"
-                android:textColor="@color/primary"
+                android:textColor="@color/secondaryInverse"
                 android:textStyle="bold" />
 
         </LinearLayout>

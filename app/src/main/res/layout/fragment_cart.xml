@@ -63,19 +63,23 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnPlaceOrder"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/primary"
-                android:minHeight="48dp"
+                android:padding="12dp"
                 android:text="Place Order"
                 android:textColor="@color/inverseText"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                app:cornerRadius="16dp"
                 app:icon="@drawable/arrow_right_thin"
-                app:iconGravity="textEnd" />
+                app:iconGravity="textEnd"
+                app:iconSize="24dp"
+                app:iconTint="@color/inverseText" />
 
         </LinearLayout>
 
@@ -86,7 +90,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="200dp"
@@ -124,9 +129,9 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/secondary"
-            android:minHeight="64dp"
+            android:padding="16dp"
             android:text="Discover Books"
-            android:textColor="@color/text"
+            android:textColor="@color/secondaryInverse"
             android:textStyle="bold"
             app:cornerRadius="16dp" />
 

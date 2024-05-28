@@ -93,7 +93,6 @@ public class CartFragment extends Fragment {
                 showEmptyCart();
             }
         });
-
         databaseReference.keepSynced(true);
     }
 

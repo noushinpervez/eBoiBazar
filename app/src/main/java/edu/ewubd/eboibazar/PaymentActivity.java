@@ -1,5 +1,6 @@
 package edu.ewubd.eboibazar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -66,6 +67,15 @@ public class PaymentActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+            }
+        });
+
+        findViewById(R.id.btnHistory).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(PaymentActivity.this, OrderHistoryActivity.class);
+                startActivity(i);
                 finish();
             }
         });

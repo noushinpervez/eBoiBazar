@@ -406,8 +406,6 @@
         android:elevation="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -415,6 +413,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
             android:layout_weight="0"
             android:orientation="horizontal">
 
@@ -456,17 +456,21 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddToCart"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
             android:layout_weight="2"
             android:backgroundTint="@color/primary"
-            android:minHeight="48dp"
+            android:padding="12dp"
             android:text="Add to Cart"
             android:textColor="@color/inverseText"
             android:textSize="14sp"
             android:textStyle="bold"
+            app:cornerRadius="16dp"
             app:icon="@drawable/cart_outline"
             app:iconGravity="textStart" />
 

@@ -55,7 +55,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Image.PILL.User"
-                app:strokeColor="@color/primary"
+                app:strokeColor="@color/secondaryInverse"
                 app:strokeWidth="2dp" />
 
             <TextView
@@ -67,7 +67,7 @@
                 android:maxLines="1"
                 android:text="Login"
                 android:textAllCaps="true"
-                android:textColor="@color/text"
+                android:textColor="@color/secondaryInverse"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/tvEmail"
@@ -83,7 +83,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="Click here to continue your login"
-                android:textColor="@color/text"
+                android:textColor="@color/secondaryInverse"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tvName"
@@ -121,7 +121,7 @@
             android:minHeight="48dp"
             android:paddingVertical="12dp"
             android:text="Sign Out"
-            android:textColor="@color/primary"
+            android:textColor="@color/secondaryInverse"
             android:textSize="16sp" />
 
     </LinearLayout>

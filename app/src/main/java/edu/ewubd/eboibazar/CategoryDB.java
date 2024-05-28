@@ -41,6 +41,15 @@ public class CategoryDB extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateCategory(Category category) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("category", category.getCategory());
+
+        db.update("categories", values, "id = ?", new String[]{category.getKey()});
+        db.close();
+    }
+
     public ArrayList<Category> getAllCategories() {
         ArrayList<Category> categories = new ArrayList<>();
         String q = "SELECT * FROM categories";

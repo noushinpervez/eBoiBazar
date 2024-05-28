@@ -37,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:alpha="0.9"
             android:text="Checkout Summary"
             android:textColor="@color/text"
             android:textSize="20sp"
@@ -57,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:text="Total"
-                    android:textColor="@color/text"
+                    android:textColor="@color/secondaryInverse"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -68,7 +69,7 @@
                     android:gravity="end"
                     android:padding="8dp"
                     android:text="100"
-                    android:textColor="@color/text"
+                    android:textColor="@color/secondaryInverse"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -86,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:text="Shipping"
-                    android:textColor="@color/text"
+                    android:textColor="@color/secondaryInverse"
                     android:textSize="16sp" />
 
                 <TextView
@@ -96,7 +97,7 @@
                     android:gravity="end"
                     android:padding="8dp"
                     android:text="50"
-                    android:textColor="@color/text"
+                    android:textColor="@color/secondaryInverse"
                     android:textSize="16sp" />
 
             </TableRow>
@@ -113,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:text="Payable Total"
-                    android:textColor="@color/text"
+                    android:textColor="@color/secondaryInverse"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -124,7 +125,7 @@
                     android:gravity="end"
                     android:padding="8dp"
                     android:text="150"
-                    android:textColor="@color/text"
+                    android:textColor="@color/secondaryInverse"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -146,6 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:alpha="0.9"
             android:text="Choose a payment method"
             android:textColor="@color/text"
             android:textSize="20sp"
@@ -159,10 +161,13 @@
             android:backgroundTint="@color/secondary30"
             android:checked="true"
             android:padding="16dp"
-            android:text="Cash on delivery" />
+            android:text="Cash on delivery"
+            android:textColor="@color/secondaryInverse"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
+    <!-- order placement completed layout -->
     <LinearLayout
         android:id="@+id/completedLayout"
         android:layout_width="match_parent"
@@ -171,19 +176,36 @@
         android:background="@drawable/dialog_background"
         android:backgroundTint="@color/secondary30"
         android:orientation="vertical"
-        android:paddingVertical="48dp"
         android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:gravity="center"
+            android:padding="16dp"
             android:text="Order Completed"
-            android:textAlignment="center"
-            android:textColor="@color/text"
+            android:textColor="@color/secondaryInverse"
             android:textSize="40sp"
             android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnHistory"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/secondary"
+            android:padding="16dp"
+            android:text="Orders History"
+            android:textAllCaps="false"
+            android:textColor="@color/secondaryInverse"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/arrow_right_thin"
+            app:iconGravity="textEnd"
+            app:iconSize="32dp"
+            app:iconTint="@color/secondaryInverse" />
 
     </LinearLayout>
 
@@ -194,12 +216,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_margin="16dp"
-        android:minHeight="64dp"
+        android:backgroundTint="@color/primary"
+        android:padding="16dp"
         android:text="Complete Order"
         android:textColor="@color/inverseText"
         android:textStyle="bold"
         app:cornerRadius="16dp"
         app:icon="@drawable/arrow_right_thin"
-        app:iconGravity="textEnd" />
+        app:iconGravity="textEnd"
+        app:iconSize="24dp"
+        app:iconTint="@color/inverseText" />
 
 </LinearLayout>
