@@ -41,6 +41,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private FirebaseUser user;
     private ImageView imgBookCover;
     private Toolbar toolbar;
+    private Book book;
     private int count = 1;
 
     @Override
@@ -50,7 +51,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
         initialize();
 
-        Book book = (Book) getIntent().getSerializableExtra("book");
+        book = (Book) getIntent().getSerializableExtra("book");
         if (book != null) updateUI(book);
 
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +113,6 @@ public class BookDetailActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         }
-
         databaseReference.keepSynced(true);
     }
 
@@ -150,7 +150,6 @@ public class BookDetailActivity extends AppCompatActivity {
                 Toast.makeText(BookDetailActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
         databaseReference.keepSynced(true);
     }
 

@@ -327,12 +327,12 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etDescription"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="200dp"
                 android:gravity="top|start"
                 android:inputType="text|textMultiLine"
-                android:maxLength="500"
+                android:maxLength="1000"
                 android:maxLines="15"
-                android:scrollbars="horizontal"
+                android:scrollbars="vertical"
                 android:singleLine="false" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -385,7 +385,7 @@
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressIndicator"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="8dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:trackColor="@color/secondaryInverse" />

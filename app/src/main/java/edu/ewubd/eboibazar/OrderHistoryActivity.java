@@ -47,7 +47,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            if ((Objects.equals(user.getEmail(), "eboibazaradmin@gmail.com") || Objects.equals(user.getEmail(), "noushin9136@gmail.com")))
+            if ((Objects.equals(user.getEmail(), "admineboibazar@gmail.com") || Objects.equals(user.getEmail(), "noushin9136@gmail.com")))
                 loadAllUsersOrderHistory();
             else {
                 databaseReference = FirebaseDatabase.getInstance().getReference("Orders").child(user.getUid());
